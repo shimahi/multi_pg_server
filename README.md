@@ -90,14 +90,12 @@ $ sudo systemctl restart docker
 →→→ここでエラー！！！！！
 Job for docker.service failed because the control process exited with error code.
 See "systemctl status docker.service" and "journalctl -xe" for details.
+
 ```
 
-TODO:  
+dindで動かないだけ？ConoHaで動けばそれでいいんだが...
+
+
+memo:  
 [Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)
 [ConoHa VPS (ubuntu 18.04) ](https://qiita.com/jqtype/items/126c33ea176f3ba506c3)
-
-- ポート
-- ルートログイン禁止
-- 公開鍵ログイン
-- パスワードログイン禁止
-- iptables 設定
