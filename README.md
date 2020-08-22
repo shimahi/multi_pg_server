@@ -1,26 +1,16 @@
-Ubuntu のバージョンは 18.04 (bionic)を使う
+# UbuntuにDocker, kubeadmをセットアップしてPostgreSQLサーバのクラスタを作成する
 
+Ubuntu のバージョンは 18.04 (bionic)
+
+vagrantでLinux環境を作りsshログインし、そこでDockerを起動する
+
+
+ホストIPは `192.33.10`
+
+※ 最初はDocker上のLinuxコンテナ内で行おうとしたが、コンテナ内でのDockerの起動がうまくいかなかった（デーモン周りの不具合）ので、vagrantで環境構築を行った。
 ```
-# ローカル環境はdockerで作成する
-
-まず。systemdのパッケージをコンテナにインストールするためにコンテナを起動し中に入る
-$ docker run -it container_name ubuntu:bionic /bin/bash
-
-Systemdをインストール
-# apt install systemd -y
-
-コンテナの外へ
-# exit
-
-このコンテナをイメージ化する
-$ docker commit container_name <イメージ名>:<tag>
-
-このイメージを--privileged /sbin/initで繋げてコンテナ起動
-$ docker run --privileged -d -p 22 --name new_container_name <イメージ名>:tag /sbin/init
-
-新しく作ったコンテナに入る
-$ docker exec -it new_container_name bash
-
+$ vagrant up
+$ vagrant ssh
 ```
 
 ```
@@ -87,15 +77,9 @@ $ sudo systemctl daemon-reload
 
 Dockerの再起動
 $ sudo systemctl restart docker
-→→→ここでエラー！！！！！
-Job for docker.service failed because the control process exited with error code.
-See "systemctl status docker.service" and "journalctl -xe" for details.
-
 ```
-
-dindで動かないだけ？ConoHaで動けばそれでいいんだが...
 
 
 memo:  
 [Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)
-[ConoHa VPS (ubuntu 18.04) ](https://qiita.com/jqtype/items/126c33ea176f3ba506c3)
+[ConoHa VPS (ubuntu 18.04) 初期設定メモ](https://qiita.com/jqtype/items/126c33ea176f3ba506c3)
