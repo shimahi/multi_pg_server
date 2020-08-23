@@ -1,6 +1,4 @@
 .DS_Store
 .vscode
 .vagrant
-pgsql-data/
-pgsql-data-1/
-pgsql-data-2/
+pgsql-data-*/
