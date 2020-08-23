@@ -1,0 +1,16 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+
+    volumes:
+      - ./pgsql-data:/var/lib/postgresql/data
+    # ホスト側は任意のポート
+    ports:
+      - 5433:5432
+
+
+# $psql  -p 5433 -h localhost postgres -U postgres
