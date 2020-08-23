@@ -96,5 +96,5 @@ $ psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
 ```
 
 memo:  
-[Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)
+[Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)  
 [ConoHa VPS (ubuntu 18.04) 初期設定メモ](https://qiita.com/jqtype/items/126c33ea176f3ba506c3)
