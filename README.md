@@ -1,13 +1,12 @@
-# UbuntuにDocker, kubeadmをセットアップしてPostgreSQLサーバのクラスタを作成する
+# UbuntuにDocker, docker-composeをセットアップして、PostgreSQLサーバを複数台構築する
 
 Ubuntu のバージョンは 18.04 (bionic)
 
 vagrantでLinux環境を作りsshログインし、そこでDockerを起動する
 
-
 ホストIPは `192.33.10`
 
-※ 最初はDocker上のLinuxコンテナ内で行おうとしたが、コンテナ内でのDockerの起動がうまくいかなかった（デーモン周りの不具合）ので、vagrantで環境構築を行った。
+※ 最初はDocker上のLinuxコンテナ内で行おうとしたが、コンテナ内でのDockerの起動がうまくいかなかった（デーモン周りの不具合）ため、vagrantで環境構築を行った。
 ```
 $ vagrant up
 $ vagrant ssh
@@ -79,6 +78,22 @@ Dockerの再起動
 $ sudo systemctl restart docker
 ```
 
+## TODO: 
+- docker-composeのインストール手順
+- 環境変数・ポートを一元管理できるようにしたい
+- プロジェクトが増えても簡単にPostgreSQLサーバを作れるようなシェルを作る
+(`ports.txt` みたいなファイルと、シェル叩いたらポート自動生成 + プロジェクト名に応じたDB作成)
+- コンテナ外部からの接続
+
+
+## PostgreSQLの起動
+```
+$ docker-compose up -d
+```
+しばらく待ってから
+```
+$ psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
+```
 
 memo:  
 [Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)

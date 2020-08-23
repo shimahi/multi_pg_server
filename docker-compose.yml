@@ -1,16 +1,32 @@
 version: '3'
 services:
-  postgres:
+  postgres_project_1:
     image: postgres:12
     restart: always
     environment:
-      POSTGRES_PASSWORD: root
-
+      POSTGRES_USER: postgres_project_1
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:
-      - ./pgsql-data:/var/lib/postgresql/data
+      - ./pgsql-data-1:/var/lib/postgresql/data
     # ホスト側は任意のポート
     ports:
       - 5433:5432
+  postgres_project_2:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: postgres_project_2
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - ./pgsql-data-2:/var/lib/postgresql/data
+    # ホスト側は任意のポート
+    ports:
+      - 5434:5432
 
 
-# $psql  -p 5433 -h localhost postgres -U postgres
+# docker-compose up -d
+# しばらく待ってから
+# psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
+# psql -p 5434 -h localhost postgres_project_2 -U postgres_project_2

@@ -2,3 +2,5 @@
 .vscode
 .vagrant
 pgsql-data/
+pgsql-data-1/
+pgsql-data-2/
