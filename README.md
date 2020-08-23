@@ -78,14 +78,6 @@ Dockerの再起動
 $ sudo systemctl restart docker
 ```
 
-## TODO: 
-- docker-composeのインストール手順
-- 環境変数・ポートを一元管理できるようにしたい
-- プロジェクトが増えても簡単にPostgreSQLサーバを作れるようなシェルを作る
-(`ports.txt` みたいなファイルと、シェル叩いたらポート自動生成 + プロジェクト名に応じたDB作成)
-- コンテナ外部からの接続
-
-
 ## PostgreSQLの起動
 ```
 $ docker-compose up -d
@@ -93,7 +85,19 @@ $ docker-compose up -d
 しばらく待ってから
 ```
 $ psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
+$ psql -p 5434 -h localhost postgres_project_2 -U postgres_project_2
 ```
+
+
+## TODO: 
+- docker-composeのインストール手順
+- 環境変数・ポートを一元管理できるようにしたい
+- プロジェクトが増えても簡単にPostgreSQLサーバを作れるようなシェルを作る
+(`ports.txt` みたいなポート管理のファイルと、シェル叩いたらポート自動生成 + プロジェクト名に応じたDB作成)
+- コンテナ外部からの接続ができるように調査
+
+
+
 
 memo:  
 [Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)  
