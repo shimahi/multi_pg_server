@@ -2,3 +2,7 @@
 .vscode
 .vagrant
 pgsql-data-*/
+.cache
+.gnupg
+.sudo_as_admin_successful
+.bash_history
