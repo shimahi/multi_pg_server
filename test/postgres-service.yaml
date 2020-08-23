@@ -12,6 +12,6 @@ spec:
    app: postgres
 
 # 4. kubectl create -f postgres-service.yaml
-# 5. get svc postgres
+# 5. kubectl get svc postgres
 # → PORT(S)の 5432:<32412>/TCP の<>を控える
 # 5. psql -h localhost -U postgresadmin --password -p 32412 postgresdb

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-neko
+  labels:
+    app: postgres-neko
+data:
+  POSTGRES_DB: postgresdb-neko
+  POSTGRES_USER: postgresadmin
+  POSTGRES_PASSWORD: admin123
+
+# 1. kubectl create -f config.yaml
+# 2. kubectl create -f storage.yaml
+# 3. kubectl create -f deployment.yaml
+# 4. kubectl create -f service.yaml
+
+# psql -h localhost -U postgresadmin --password -p 32022 postgresdb-neko
+# psql -h localhost -U postgresadmin --password -p 32439 postgresdb-inu
+
+# kubectl delete service postgres-neko
+# kubectl delete deployment postgres-neko
+# kubectl delete configmap config-neko
+# kubectl delete persistentvolumeclaim postgres-pv-claim-neko
+# kubectl delete persistentvolume postgres-pv-volume-neko
