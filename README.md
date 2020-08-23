@@ -78,19 +78,34 @@ Dockerの再起動
 $ sudo systemctl restart docker
 ```
 
-## PostgreSQLの起動
 ```
-$ docker-compose up -d
+docker-composeのインストール
+$ sudo apt install -y docker-compose
+
+docker-composeの実行
+
+$ sudo docker-compose up -d
+
+(しばらく待つ)
 ```
-しばらく待ってから
+
 ```
+pg, psqlのインストール
+$ sudo apt install -y gnupg
+$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+$ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+$ sudo apt update
+$ sudo apt -y install postgresql-12 postgresql-client-12
+```
+
+```
+<PostgreSQLの中に入る(例)>
 $ psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
 $ psql -p 5434 -h localhost postgres_project_2 -U postgres_project_2
 ```
 
 
 ## TODO: 
-- docker-composeのインストール手順
 - 環境変数・ポートを一元管理できるようにしたい
 - プロジェクトが増えても簡単にPostgreSQLサーバを作れるようなシェルを作る
 (`ports.txt` みたいなポート管理のファイルと、シェル叩いたらポート自動生成 + プロジェクト名に応じたDB作成)
