@@ -1,38 +1,43 @@
-# Ubuntu に Docker, docker-compose をセットアップして、PostgreSQL サーバを複数台構築する
+# PostgreSQL on Docker
 
-Ubuntu のバージョンは 18.04 (bionic)
+VPSを想定した仮想OSをVagrantで立ち上げ、Docker, docker-compose をセットアップして、PostgreSQL サーバを複数台構築する。
 
-vagrant で Linux 環境を作り ssh ログインし、そこで Docker を起動する
+仮想OSは **Ubuntu 18.04** を使用
 
-ホスト IP は `192.33.10`
 
-※ 最初は Docker 上の Linux コンテナ内で行おうとしたが、コンテナ内での Docker の起動がうまくいかなかったため、vagrant で環境構築を行った。
-
+### 仮想OS立ち上げ
 ```
 $ vagrant up
 $ vagrant ssh
-# もしパスワードを尋ねられたら "vagrant" を入力
 ```
 
+### 初期設定
 ```
 パッケージリストの更新
-# apt update
-インストールされてるパッケージの更新
-# apt -y upgrade
+# sudo apt update
 
-sudo, vimのインストール
-# apt install -y sudo vim
+インストールされてるパッケージの更新
+# sudo apt -y upgrade
 
 作業ユーザー作成
-# adduser inu
+# sudo adduser inu
+# <パスワード入力>
+
 作業ユーザーにroot権限を与える
-# usermod -aG sudo inu
+# sudo usermod -aG sudo inu
+
 作業ユーザーにログイン
 # su inu
+# <パスワード入力>
 ```
+その他  
+[ConoHa VPS スタートアップガイド](https://support.conoha.jp/vps/guide/vpsstartup/?btn_id=top_guide-vpsstartup)  
+[Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)  
 
+
+### Dockerのセットアップ
 ```
-必要パッケージのインストール
+必要なパッケージのインストール
 $ sudo apt install -y apt-transport-https ca-certificates curl software-properties-common gnupg2 wget
 
 Docker公式のGPG鍵を追加
@@ -47,11 +52,8 @@ $ sudo add-apt-repository \
 Docker CEのインストール
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
-作業ユーザーでDockerがつかえるように
+作業ユーザーでDockerが使えるようにする
 $ sudo usermod -aG docker inu
-
-/etc/docker ディレクトリを作成
-$ sudo mkdir /etc/docker
 
 デーモンのセットアップ
 $ sudo vim /etc/docker/daemon.json
@@ -82,42 +84,36 @@ $ sudo systemctl restart docker
 docker-composeのインストール
 $ sudo apt install -y docker-compose
 
-PostgreSQLサーバーのコンテナを立ち上げるためのdocker-compose.ymlを書く。
-$ vim docker-compose.yml
-// ・・・
+PostgreSQLサーバーのコンテナを立ち上げるためのdocker-compose.yamlを作成する。
+$ vim docker-compose.yaml
 
-docker-composeの実行
+コンテナの起動
 $ sudo docker-compose up -d
 
-pg, psqlのインストール
+DBサーバの起動までしばらくかかるので待つ。ポートが開けているか確認する。
+$ sudo docker ps
+```
+
+### 仮想OSの内部からDBサーバーにアクセスする
+```
+前準備: pg, psqlをインストールする
 $ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 $ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
 $ sudo apt update
 $ sudo apt -y install postgresql-12 postgresql-client-12
 ```
-
-##### VagrantのUbuntu上からDBサーバーにアクセスする
+自身のホストIP `localhost` と docker-composeで記載したポート・DB名・ユーザ名を指定してDBにログインする
 ```
-→ 自身のホストは localhost 扱い
-
-$ psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
+$ psql -p 5433 -h localhost project_1_db -U project_1_db_user
 ```
 
-### 外部からDBサーバーにアクセスする
+### 仮想OSの外部からDBサーバーにアクセスする
+仮想OSのホストIP `192.168.33.10` (Vagrantfileに記載)を指定してDBにログインする。
 ```
-→ 仮想OSのホストは 192.168.33.10 (Vagrantfileに記載)
-
-$ psql -p 5433 -h 192.168.33.10 postgres_project_1 -U postgres_project_1
+$ psql -p 5433 -h 192.168.33.10 project_1_db -U project_1_db_user
 ```
 
-
-## TODO:
-
-- 環境変数・ポートを一元管理できるようにしたい
-- プロジェクトが増えても簡単に PostgreSQL サーバを作れるようなシェルを作る
-  (`ports.txt` みたいなポート管理のファイルと、シェル叩いたらポート自動生成 + プロジェクト名に応じた DB 作成)
-- コンテナ外部からの接続ができるように調査
-
-memo:  
-[Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)  
-[ConoHa VPS (ubuntu 18.04) 初期設定メモ](https://qiita.com/jqtype/items/126c33ea176f3ba506c3)
+<hr>
+#### memo
+- 環境変数は.envで扱いたい。
+- ポートを一元管理できるようにしたい。プロジェクトが増えても簡単に PostgreSQL サーバを作れるようなシェルを作る (シェル叩いたらポート自動生成 + プロジェクト名に応じた コンテナ追加 + ポートが重複しないように `ports.txt` みたいな管理のファイルにポートを追加)
