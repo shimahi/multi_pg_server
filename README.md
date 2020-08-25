@@ -116,7 +116,10 @@ $ psql -p 5433 -h 192.168.33.10 project_1_db -U project_1_db_user
 <hr>
 #### memo
 - 本番運用する場合、安全のために固有IPアドレスからのみアクセスを許可する必要がある。その他セキュリティについて都度調べておく。できる限りdockerで設定したい  
+
 [Certificate Authentication Recipe for PostgreSQL Docker Containers](https://info.crunchydata.com/blog/ssl-certificate-authentication-postgresql-docker-containers)  
+
 [pg_hba.confファイルの設定方法](https://www.dbonline.jp/postgresql/ini/index2.html)  
-[PostgreSQL にリモートホストから安全に接続するには](https://qiita.com/tom-sato/items/d5f722fd02ed76db5440)
+
+[PostgreSQL にリモートホストから安全に接続するには](https://qiita.com/tom-sato/items/d5f722fd02ed76db5440)  
 - ポートを一元管理できるようにしたい。プロジェクトが増えても簡単に PostgreSQL サーバを作れるようなシェルを作る (シェル叩いたらポート自動生成 + プロジェクト名に応じた コンテナ追加 + ポートが重複しないように `ports.txt` みたいな管理のファイルにポートを追加 )
