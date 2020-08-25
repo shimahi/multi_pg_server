@@ -31,6 +31,7 @@ $ vagrant ssh
 # <パスワード入力>
 ```
 その他  
+[さくらVPS サーバ作成直後に設定しておくべき初期セキュリティ設定](https://manual.sakura.ad.jp/vps/support/security/firstsecurity.html)  
 [ConoHa VPS スタートアップガイド](https://support.conoha.jp/vps/guide/vpsstartup/?btn_id=top_guide-vpsstartup)  
 [Ubuntu 最低限抑えておきたい初期設定](https://qiita.com/kotarella1110/items/f638822d64a43824dfa4)  
 
