@@ -1,21 +1,23 @@
 version: '3'
 services:
-  postgres_project_1:
+  project_1:
     image: postgres:12
     restart: always
     environment:
-      POSTGRES_USER: postgres_project_1
+      POSTGRES_DB: project_1_db
+      POSTGRES_USER: project_1_db_user
       POSTGRES_PASSWORD: password
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:
       - ./pgsql-data-1:/var/lib/postgresql/data
     ports:
       - 5433:5432
-  postgres_project_2:
+  project_2:
     image: postgres:12
     restart: always
     environment:
-      POSTGRES_USER: postgres_project_2
+      POSTGRES_DB: project_2_db
+      POSTGRES_USER: project_2_db_user
       POSTGRES_PASSWORD: password
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:
