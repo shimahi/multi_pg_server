@@ -6,7 +6,7 @@ vagrant で Linux 環境を作り ssh ログインし、そこで Docker を起�
 
 ホスト IP は `192.33.10`
 
-※ 最初は Docker 上の Linux コンテナ内で行おうとしたが、コンテナ内での Docker の起動がうまくいかなかった（デーモン周りの不具合）ため、vagrant で環境構築を行った。
+※ 最初は Docker 上の Linux コンテナ内で行おうとしたが、コンテナ内での Docker の起動がうまくいかなかったため、vagrant で環境構築を行った。
 
 ```
 $ vagrant up
@@ -82,14 +82,13 @@ $ sudo systemctl restart docker
 docker-composeのインストール
 $ sudo apt install -y docker-compose
 
+PostgreSQLサーバーのコンテナを立ち上げるためのdocker-compose.ymlを書く。
+$ vim docker-compose.yml
+// ・・・
 
 docker-composeの実行
 $ sudo docker-compose up -d
 
-(しばらく待つ)
-```
-
-```
 pg, psqlのインストール
 $ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 $ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
@@ -97,11 +96,20 @@ $ sudo apt update
 $ sudo apt -y install postgresql-12 postgresql-client-12
 ```
 
+##### VagrantのUbuntu上からDBサーバーにアクセスする
 ```
-<PostgreSQLの中に入る(例)>
+→ 自身のホストは localhost 扱い
+
 $ psql -p 5433 -h localhost postgres_project_1 -U postgres_project_1
-$ psql -p 5434 -h localhost postgres_project_2 -U postgres_project_2
 ```
+
+### 外部からDBサーバーにアクセスする
+```
+→ 仮想OSのホストは 192.168.33.10 (Vagrantfileに記載)
+
+$ psql -p 5433 -h 192.168.33.10 postgres_project_1 -U postgres_project_1
+```
+
 
 ## TODO:
 
