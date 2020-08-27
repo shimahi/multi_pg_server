@@ -110,7 +110,7 @@ DBサーバの起動までしばらくかかるので待つ。ポートが開け
 $$ sudo docker ps
 ```
 
-### サーバー内部からDBサーバーにアクセスする
+サーバー内部からDBサーバーにアクセスする
 
 ```
 前準備: pg, psqlをインストールする
@@ -269,14 +269,36 @@ $ ssh my_first_conoha
 
 <hr>
 
+
+### 立ち上げたDBサーバとHasura Cloudを接続する
+
+[Hasura Cloud](https://cloud.hasura.io/) で新規プロジェクトを立ち上げる  
+
+`Enter a Postgres Database URL` に以下の形式でDB情報を記述する
+```
+postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
+
+e.g. )
+postgresql://project_1_db_user:password@xxx.ipaddress.xxx:5433/project_1_db
+```
+
+`Create project`でHasuraとDBサーバが接続できる。
+
+<hr>
+
 ### Memo
 
 - 本番運用する場合、安全のために固有 IP アドレスからのみアクセスを許可する必要がある。その他セキュリティについて都度調べておく。できる限り docker で設定したい
+
+[Postgres permissions](https://hasura.io/docs/1.0/graphql/cloud/projects/create.html#postgres-permissions)
+[Postgres requirements](https://hasura.io/docs/1.0/graphql/core/deployment/postgres-requirements.html)
 
 [Certificate Authentication Recipe for PostgreSQL Docker Containers](https://info.crunchydata.com/blog/ssl-certificate-authentication-postgresql-docker-containers)
 
 [pg_hba.conf ファイルの設定方法](https://www.dbonline.jp/postgresql/ini/index2.html)
 
 [PostgreSQL にリモートホストから安全に接続するには](https://qiita.com/tom-sato/items/d5f722fd02ed76db5440)
+
+
 
 - ポートを一元管理できるようにしたい。プロジェクトが増えても簡単に PostgreSQL サーバを作れるようなシェルを作る (シェル叩いたらポート自動生成 + プロジェクト名に応じた コンテナ追加 + ポートが重複しないように `ports.txt` みたいな管理のファイルにポートを追加 )
