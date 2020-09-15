@@ -282,13 +282,26 @@ e.g. )
 postgresql://project_1_db_user:password@xxx.ipaddress.xxx:5433/project_1_db
 ```
 
+`Allow connections to your database from Hasura Cloud IP` のIPアドレスからのアクセスのみ許可するようにPostgresqlを設定する
+```
+$$ sudo vim  ~/app/my_first_conoha/<db_volume_name>/postgresql.conf
+
+///
+listen_addresses = 'HasuraのIPアドレス'
+///
+
+$$ sudo vim ~/app/my_first_conoha/<db_volume_name>/pg_hba.conf
+///
+host    all             all             HasuraのIPアドレス            trust
+///
+```
+
+
 `Create project`でHasuraとDBサーバが接続できる。
 
 <hr>
 
 ### Memo
-
-- 本番運用する場合、安全のために固有 IP アドレスからのみアクセスを許可する必要がある。その他セキュリティについて都度調べておく。できる限り docker で設定したい
 
 [Postgres permissions](https://hasura.io/docs/1.0/graphql/cloud/projects/create.html#postgres-permissions)
 [Postgres requirements](https://hasura.io/docs/1.0/graphql/core/deployment/postgres-requirements.html)
@@ -296,6 +309,8 @@ postgresql://project_1_db_user:password@xxx.ipaddress.xxx:5433/project_1_db
 [Certificate Authentication Recipe for PostgreSQL Docker Containers](https://info.crunchydata.com/blog/ssl-certificate-authentication-postgresql-docker-containers)
 
 [pg_hba.conf ファイルの設定方法](https://www.dbonline.jp/postgresql/ini/index2.html)
+
+[PostgreSQLで外部許可](https://qiita.com/nao_yoshi/items/a5106e8f08547a54d5ea)
 
 [PostgreSQL にリモートホストから安全に接続するには](https://qiita.com/tom-sato/items/d5f722fd02ed76db5440)
 
