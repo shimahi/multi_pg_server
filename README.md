@@ -285,21 +285,6 @@ e.g. )
 postgresql://project_1_db_user:password@xxx.ipaddress.xxx:5433/project_1_db
 ```
 
-`Allow connections to your database from Hasura Cloud IP` のIPアドレスからのアクセスのみ許可するようにPostgresqlを設定する
-```
-$$ sudo vim  ~/app/<db_volume_name>/postgresql.conf
-
-///
-listen_addresses = 'HasuraのIPアドレス'
-///
-
-$$ sudo vim ~/app/<db_volume_name>/pg_hba.conf
-///
-host    all             all             HasuraのIPアドレス            trust
-///
-```
-
-
 `Create project`でHasuraとDBサーバが接続できる。
 
 <hr>
