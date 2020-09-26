@@ -99,6 +99,7 @@ $$ sudo apt install -y docker-compose
 
 docker-compose置く用のディレクトリを作っておく
 $$ mkdir ~/app
+$$ cd ~/app
 
 PostgreSQLサーバーのコンテナを立ち上げるためのdocker-compose.yamlを作成する。
 $$ vim docker-compose.yaml
