@@ -223,7 +223,7 @@ $$ sudo update-locale LANG=ja_JP.UTF-8
 鍵作る
 $$ sudo mkdir ~/.ssh
 $$ cd ~/.ssh
-$$ ssh-keygen -t rsa -b 4096
+$$ sudo ssh-keygen -t rsa -b 4096
 $$ $ ls # → id_rsa id_rsa.pub
 
 ! id_rsa.pub が公開鍵
