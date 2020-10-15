@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_DB: project_1_db
-      POSTGRES_USER: project_1_db_user
+      POSTGRES_USER: project_1_user
       POSTGRES_PASSWORD: password
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:
@@ -17,7 +17,7 @@ services:
     restart: always
     environment:
       POSTGRES_DB: project_2_db
-      POSTGRES_USER: project_2_db_user
+      POSTGRES_USER: project_2_user
       POSTGRES_PASSWORD: password
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:

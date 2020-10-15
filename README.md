@@ -123,7 +123,7 @@ $$ sudo apt -y install postgresql-12 postgresql-client-12
 自身のホスト IP `localhost` と docker-compose で記載したポート・DB 名・ユーザ名を指定して DB にログインする
 
 ```
-$$ psql -p 5433 -h localhost project_1_db -U project_1_db_user
+$$ psql -p 5433 -h localhost project_1_db -U project_1_user
 ```
 
 ### サーバー外部からDBサーバーにアクセスする
@@ -131,7 +131,7 @@ $$ psql -p 5433 -h localhost project_1_db -U project_1_db_user
 サーバーのホスト IP `192.168.33.10` (vagrantの場合、Vagrantfile に記載してあるもの)を指定して DB にログインする。
 
 ```
-$ psql -p 5433 -h 192.168.33.10 project_1_db -U project_1_db_user
+$ psql -p 5433 -h 192.168.33.10 project_1_db -U project_1_user
 ```
 
 <hr>
@@ -280,7 +280,7 @@ $ ssh my_first_conoha
 postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
 
 e.g. )
-postgresql://project_1_db_user:password@xxx.ipaddress.xxx:5433/project_1_db
+postgresql://project_1_user:password@xxx.ipaddress.xxx:5433/project_1_db
 ```
 
 `Allow connections to your database from Hasura Cloud IP` のIPアドレスからのアクセスのみ許可するようにPostgresqlを設定する
