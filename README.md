@@ -99,6 +99,7 @@ $$ sudo apt install -y docker-compose
 
 docker-compose置く用のディレクトリを作っておく
 $$ mkdir ~/app
+$$ cd ~/app
 
 PostgreSQLサーバーのコンテナを立ち上げるためのdocker-compose.yamlを作成する。
 $$ vim docker-compose.yaml
@@ -222,8 +223,9 @@ $$ sudo update-locale LANG=ja_JP.UTF-8
 ```
 鍵作る
 $$ sudo mkdir ~/.ssh
+## sudo chown inu .ssh
 $$ cd ~/.ssh
-$$ sudo ssh-keygen -t rsa -b 4096
+$$ ssh-keygen -t rsa -b 4096
 $$ $ ls # → id_rsa id_rsa.pub
 
 ! id_rsa.pub が公開鍵
@@ -282,21 +284,6 @@ postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
 e.g. )
 postgresql://project_1_user:password@xxx.ipaddress.xxx:5433/project_1_db
 ```
-
-`Allow connections to your database from Hasura Cloud IP` のIPアドレスからのアクセスのみ許可するようにPostgresqlを設定する
-```
-$$ sudo vim  ~/app/my_first_conoha/<db_volume_name>/postgresql.conf
-
-///
-listen_addresses = 'HasuraのIPアドレス'
-///
-
-$$ sudo vim ~/app/my_first_conoha/<db_volume_name>/pg_hba.conf
-///
-host    all             all             HasuraのIPアドレス            trust
-///
-```
-
 
 `Create project`でHasuraとDBサーバが接続できる。
 
